@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
-// src/Components/AudioPlayer.jsx
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { FaPause, FaPlay, FaStopCircle } from "react-icons/fa";
 
 const Audio = ({ audioSrc, onEnded, onPlay, onStop }) => {
   const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     // Set the audio source when the component mounts
@@ -13,16 +13,19 @@ const Audio = ({ audioSrc, onEnded, onPlay, onStop }) => {
 
   const playAudio = () => {
     audioRef.current.play();
+    setIsPlaying(true);
     onPlay(); // Notify the parent component that this song is playing
   };
 
   const pauseAudio = () => {
     audioRef.current.pause();
+    setIsPlaying(false);
   };
 
   const stopAudio = () => {
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
+    setIsPlaying(false);
     onStop(); // Notify the parent component that this song is stopped
   };
 
@@ -33,14 +36,11 @@ const Audio = ({ audioSrc, onEnded, onPlay, onStop }) => {
         Your browser does not support the audio element.
       </audio>
       <div className="flex gap-1">
-        <button className="text-pink-500 px-2 py-1 rounded" onClick={playAudio}>
-          <FaPlay />
-        </button>
         <button
           className="text-pink-500 px-2 py-1 rounded"
-          onClick={pauseAudio}
+          onClick={isPlaying ? pauseAudio : playAudio}
         >
-          <FaPause />
+          {isPlaying ? <FaPause /> : <FaPlay />}
         </button>
         <button className="text-pink-500 px-2 py-1 rounded" onClick={stopAudio}>
           <FaStopCircle />

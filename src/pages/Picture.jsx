@@ -45,11 +45,11 @@ const Picture = () => {
   ];
 
   return (
-    <div className="absolute grid md:grid-cols-4 top-0 left-0 gap-5 h-full w-full overflow-auto p-5 ps-10">
+    <div className="absolute grid md:grid-cols-4 top-0 left-0 gap-5 h-full w-full overflow-auto p-5">
       {picture?.map((p, index) => (
         <img
           key={index}
-          className="w-[300px] h-full object-cover"
+          className="w-[300px] mx-auto h-full object-cover"
           src={p}
           alt={`photo-${index}`}
         />
