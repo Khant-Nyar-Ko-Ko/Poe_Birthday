@@ -30,6 +30,7 @@ const Video = () => {
             }`}
             controls
             onLoadedData={handleVideoLoad}
+            autoPlay
           >
             <source src={myVideo} type="video/mp4" />
             Your browser does not support the video tag.
